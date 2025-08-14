@@ -1,9 +1,9 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+import HomeScreen from './app/(tabs)';
 import AutorScreen from './app/screens/AutorScreen';
 import HelpScreen from './app/screens/HelpScreen';
-import HomeScreen from './app/screens/HomeScreen';
 import ItemDetailScreen from './app/screens/ItemDetailScreen';
 import ItemListScreen from './app/screens/ItemListScreen';
 import KnowledgeScreen from './app/screens/KnowledgeScreen';

@@ -1,0 +1,16 @@
+{
+  "usuario": {
+    "nombre": "CARLOS ANDRES",
+    "apellido": "CARLOS ANDRES",
+    "email": "carlosandres@correo.com",
+    "username": "Carlos.123",
+    "password": "Andre.123"
+  },
+  "elementos": [
+    { "id": "1", "nombre": "Elemento A", "icon": "folder" },
+    { "id": "2", "nombre": "Elemento B", "icon": "file" },
+    { "id": "3", "nombre": "Elemento C", "icon": "image" },
+    { "id": "4", "nombre": "Elemento D", "icon": "email" },
+    { "id": "5", "nombre": "Elemento E", "icon": "calendar" }
+  ]
+}

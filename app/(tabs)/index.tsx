@@ -18,73 +18,103 @@ export default function HomeScreen(): JSX.Element {
     { title: 'Lista de elementos', path: 'elementos', icon: 'playlist-check', color: '#3F51B5' },
   ];
 
-  return (
-    <ScrollView contentContainerStyle={styles.container}>
-      {/* Imagen de bienvenida */}
-      <Image
-        source={{ uri: 'https://cdn-icons-png.flaticon.com/512/8379/8379853.png' }}
-        style={styles.image}
-        resizeMode="contain"
-      />
+  if (!showMenu) {
+    // Vista de bienvenida
+    return (
+      <View style={styles.welcomeContainer}>
+        <Text variant="headlineLarge" style={styles.title}>¡Bienvenido!</Text>
+        <Text style={styles.subtitle}>¡Nos alegra tenerte aquí!</Text>
 
-      {/* Título y botón */}
-      <View style={styles.header}>
-        <Text variant="headlineMedium" style={styles.title}>
-          Pantalla de inicio
-        </Text>
+        <Image
+          source={{ uri: 'https://cdn-icons-png.flaticon.com/512/8379/8379853.png' }}
+          style={styles.image}
+          resizeMode="contain"
+        />
+
         <Button
-          mode={showMenu ? 'outlined' : 'contained'}
-          onPress={() => setShowMenu(!showMenu)}
-          style={styles.toggleButton}
+          mode="contained"
+          onPress={() => setShowMenu(true)}
+          style={styles.button}
+          labelStyle={styles.buttonLabel}
         >
-          {showMenu ? 'Ocultar menú' : 'Mostrar menú'}
+          Empezar
         </Button>
       </View>
+    );
+  }
 
-      {/* Menú */}
-      {showMenu &&
-        items.map((item) => (
-          <Card
-            key={item.path}
-            style={[styles.card, { backgroundColor: item.color }]}
-            onPress={() => router.push(`/${item.path}`)}
-          >
-            <Card.Title
-              title={item.title}
-              titleStyle={styles.cardTitle}
-              left={(props) => (
-                <IconButton {...props} icon={item.icon} iconColor="white" />
-              )}
-            />
-          </Card>
-        ))}
+  // Vista del menú
+  return (
+    <ScrollView contentContainerStyle={styles.menuContainer}>
+      <View style={styles.header}>
+        <Text variant="headlineMedium" style={styles.menuTitle}>Menú principal</Text>
+        <Button mode="outlined" onPress={() => setShowMenu(false)}>Volver</Button>
+      </View>
+
+      {items.map((item) => (
+        <Card
+          key={item.path}
+          style={[styles.card, { backgroundColor: item.color }]}
+          onPress={() => router.push(`/${item.path}`)}
+        >
+          <Card.Title
+            title={item.title}
+            titleStyle={styles.cardTitle}
+            left={(props) => (
+              <IconButton {...props} icon={item.icon} iconColor="white" />
+            )}
+          />
+        </Card>
+      ))}
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  welcomeContainer: {
+    flex: 1,
+    backgroundColor: '#FAFAFA',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 20,
+  },
+  title: {
+    fontWeight: 'bold',
+    marginBottom: 4,
+    textAlign: 'center',
+  },
+  subtitle: {
+    color: '#666',
+    marginBottom: 24,
+    textAlign: 'center',
+  },
+  image: {
+    width: '100%',
+    height: 250,
+    marginBottom: 32,
+  },
+  button: {
+    borderRadius: 25,
+    paddingVertical: 6,
+    width: '70%',
+  },
+  buttonLabel: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  menuContainer: {
     padding: 16,
     gap: 12,
     flexGrow: 1,
     backgroundColor: '#f5f5f5',
   },
-  image: {
-    width: '100%',
-    height: 180,
-    marginBottom: 16,
-    borderRadius: 12,
-  },
   header: {
     alignItems: 'center',
     marginBottom: 16,
   },
-  title: {
-    marginBottom: 8,
+  menuTitle: {
     fontWeight: 'bold',
-  },
-  toggleButton: {
-    borderRadius: 20,
+    marginBottom: 8,
   },
   card: {
     borderRadius: 12,
