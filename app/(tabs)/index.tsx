@@ -16,10 +16,10 @@ export default function HomeScreen(): JSX.Element {
     { title: 'Configuración', path: 'configuracion', icon: 'cog', color: '#607D8B' },
     { title: 'Detalle de elemento', path: 'detalle', icon: 'file-document', color: '#795548' },
     { title: 'Lista de elementos', path: 'elementos', icon: 'playlist-check', color: '#3F51B5' },
+    { title: 'Autor: Carlos Andrés Mosquera Mosquera\nC.C. 1193509518', path: '', icon: 'account', color: '#009688', disabled: true },
   ];
 
   if (!showMenu) {
-    // Vista de bienvenida
     return (
       <View style={styles.welcomeContainer}>
         <Text variant="headlineLarge" style={styles.title}>¡Bienvenido!</Text>
@@ -43,7 +43,6 @@ export default function HomeScreen(): JSX.Element {
     );
   }
 
-  // Vista del menú
   return (
     <ScrollView contentContainerStyle={styles.menuContainer}>
       <View style={styles.header}>
@@ -53,9 +52,11 @@ export default function HomeScreen(): JSX.Element {
 
       {items.map((item) => (
         <Card
-          key={item.path}
+          key={item.title}
           style={[styles.card, { backgroundColor: item.color }]}
-          onPress={() => router.push(`/${item.path}`)}
+          onPress={() => {
+            if (!item.disabled && item.path) router.push(`/${item.path}`);
+          }}
         >
           <Card.Title
             title={item.title}
