@@ -13,8 +13,7 @@ export default function HomeScreen(): JSX.Element {
     { title: 'Formulario de registro', path: 'registro', icon: 'account-plus', color: '#4CAF50' },
     { title: 'Perfil de usuario', path: 'perfil', icon: 'account-circle', color: '#9C27B0' },
     { title: 'Lista de servicios', path: 'servicios', icon: 'view-list', color: '#FF9800' },
-    { title: 'Configuración', path: 'configuracion', icon: 'cog', color: '#607D8B' },
-    { title: 'Detalle de elemento', path: 'detalle', icon: 'file-document', color: '#795548' },
+    { title: 'Configuración', path: 'configuracion', icon: 'cog', color: '#607D8B' },,
     { title: 'Lista de elementos', path: 'elementos', icon: 'playlist-check', color: '#3F51B5' },
     { title: 'Autor: Carlos Andrés Mosquera Mosquera\nC.C. 1193509518', path: '', icon: 'account', color: '#009688', disabled: true },
   ];

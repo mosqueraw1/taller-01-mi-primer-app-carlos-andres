@@ -1,51 +1,34 @@
-import React, { useState } from 'react';
+import { useRouter } from 'expo-router';
+import React from 'react';
 import { FlatList, Image, StyleSheet, View } from 'react-native';
 import { Button, Card, Text, useTheme } from 'react-native-paper';
-import productosData from '../productos.json'; // Importa tu JSON
+import productosData from '../productos.json'; // 📂 Cambia la ruta si está en otra carpeta
 
 export default function ProductosScreen(): JSX.Element {
   const theme = useTheme();
-  const [productos, setProductos] = useState(productosData);
-
-  const toggleDescripcion = (id: number) => {
-    setProductos((prev) =>
-      prev.map((prod) =>
-        prod.id === id
-          ? { ...prod, mostrarTodo: !prod.mostrarTodo }
-          : prod
-      )
-    );
-  };
+  const router = useRouter();
 
   const renderItem = ({ item }: any) => (
     <Card style={styles.card} mode="elevated">
-      {/* Imagen del producto */}
-      <Image
-        source={{ uri: item.imagen }}
-        style={styles.image}
-        resizeMode="cover"
-      />
-
-      {/* Contenido */}
-      <View style={styles.content}>
+      <Image source={{ uri: item.imagen }} style={styles.image} />
+      <Card.Content>
         <Text variant="titleMedium" style={styles.title}>
           {item.titulo}
         </Text>
-        <Text style={styles.descripcion}>
-          {item.mostrarTodo
-            ? item.descripcion
-            : `${item.descripcion.substring(0, 80)}...`}
+        <Text style={styles.description}>
+          {item.descripcion.length > 80
+            ? item.descripcion.substring(0, 80) + '...'
+            : item.descripcion}
         </Text>
-
+      </Card.Content>
+      <Card.Actions>
         <Button
           mode="contained"
-          onPress={() => toggleDescripcion(item.id)}
-          style={styles.button}
-          labelStyle={styles.buttonLabel}
+          onPress={() => router.push(`/producto/${item.id}`)}
         >
-          {item.mostrarTodo ? 'Ver menos' : 'Ver más detalles'}
+          Ver detalles
         </Button>
-      </View>
+      </Card.Actions>
     </Card>
   );
 
@@ -53,15 +36,15 @@ export default function ProductosScreen(): JSX.Element {
     <View style={styles.container}>
       <View style={styles.header}>
         <Text variant="headlineMedium" style={styles.headerTitle}>
-          Productos disponibles
+          Lista de productos
         </Text>
         <Text style={styles.headerSubtitle}>
-          {productos.length} artículos en catálogo
+          {productosData.length} productos disponibles
         </Text>
       </View>
 
       <FlatList
-        data={productos}
+        data={productosData}
         keyExtractor={(item) => item.id.toString()}
         renderItem={renderItem}
         contentContainerStyle={styles.listContent}
@@ -74,7 +57,7 @@ export default function ProductosScreen(): JSX.Element {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f9f9f9',
+    backgroundColor: '#f4f6f8',
     paddingHorizontal: 16,
     paddingTop: 20,
   },
@@ -98,31 +81,20 @@ const styles = StyleSheet.create({
   card: {
     borderRadius: 12,
     overflow: 'hidden',
-    elevation: 3,
     backgroundColor: '#fff',
+    elevation: 3,
   },
   image: {
     width: '100%',
-    height: 180,
-  },
-  content: {
-    padding: 12,
+    height: 150,
   },
   title: {
     fontWeight: 'bold',
-    marginBottom: 6,
+    marginTop: 8,
+    marginBottom: 4,
   },
-  descripcion: {
+  description: {
     fontSize: 14,
     color: '#555',
-    marginBottom: 10,
-  },
-  button: {
-    alignSelf: 'flex-start',
-    borderRadius: 20,
-  },
-  buttonLabel: {
-    fontSize: 13,
-    fontWeight: 'bold',
   },
 });
